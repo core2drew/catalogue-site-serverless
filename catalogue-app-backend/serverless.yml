@@ -1,0 +1,52 @@
+service: catalogue-app
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: ap-southeast-1
+
+functions:
+  getFeaturedProducts:
+    handler: "dist/index.handler"
+    events:
+      - httpApi:
+          path: /products/featured
+          method: get
+
+  getProducts:
+    handler: "dist/index.handler"
+    events:
+      - httpApi:
+          path: /products
+          method: get
+
+  getProduct:
+    handler: "dist/index.handler"
+    events:
+      - httpApi:
+          path: /products/{id}
+          method: get
+
+  getProductsByCategory:
+    handler: "dist/index.handler"
+    events:
+      - httpApi:
+          path: /products/category/{category}
+          method: get
+
+  getProductCategories:
+    handler: "dist/index.handler"
+    events:
+      - httpApi:
+          path: /products/categories
+          method: get
+
+  sendEnquiry:
+    handler: "dist/index.handler"
+    events:
+      - httpApi:
+          path: /send-enquiry
+          method: post
+plugins:
+  - serverless-offline
